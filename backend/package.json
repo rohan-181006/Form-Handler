@@ -1,0 +1,28 @@
+{
+  "name": "form-handler",
+  "version": "1.0.0",
+  "description": "A production-ready backend API built with Node.js, Express, and MongoDB for handling public form submissions with secure admin management.",
+  "homepage": "https://github.com/rohan-181006/Form-Handler#readme",
+  "bugs": {
+    "url": "https://github.com/rohan-181006/Form-Handler/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohan-181006/Form-Handler.git"
+  },
+  "license": "ISC",
+  "author": "Rohan",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "start",
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.1",
+    "nodemon": "^3.1.14"
+  }
+}
