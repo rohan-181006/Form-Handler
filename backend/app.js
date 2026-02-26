@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json());
 
-import postRouter from "./src/routes/post.routes.js"
+import postRouter from "./src/routes/submission.routes.js"
 
 app.use("/api/v1/post",postRouter);
 

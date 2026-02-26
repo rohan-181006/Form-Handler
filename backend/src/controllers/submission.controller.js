@@ -1,7 +1,7 @@
-import { Submission } from '../models/posts.model.js';
+import { Submission } from '../models/submission.model.js';
 
 //Create:
-const createPost = async(req,res) => {
+const createSubmission = async(req,res) => {
     try {
         const {name, email, subject ,message} = req.body;
 
@@ -17,8 +17,8 @@ const createPost = async(req,res) => {
             });
         }
 
-        //Create Post finally
-        const post = await Submission.create({
+        //Create Submission finally
+        const submission = await Submission.create({
             name,
             email,
             subject,
@@ -27,18 +27,18 @@ const createPost = async(req,res) => {
 
         res.status(201).json({
             message: "Post created successfully",
-            post
+            submission
         })
 
 
     } catch (error) {
         res.status(500).json({
             message: "Internal server error!"
-        });
+        })
     }
 }
 
 
 export{
-    createPost
+    createSubmission
 }
