@@ -5,19 +5,18 @@ const submissionSchema = new Schema(
         name:{
             type: String,
             required: [true, "Name is required"],
-            unique: false,
             trim: true,
-            minLength: 2,
-            maxLength: 100
+            minlength: 2,
+            maxlength: 100
         },
 
         email:{
             type: String,
             required: [true, "Email is required"],
-            unique: true,
             trim: true,
-            minLength: 6,
-            maxLength: 100
+            unique: false,
+            minlength: 6,
+            maxlength: 100
         },
 
         subject: {
@@ -25,8 +24,8 @@ const submissionSchema = new Schema(
             required: [true, "Subject is required"],
             unique: false,
             trim: true,
-            minLength: 2,
-            maxLength: 150
+            minlength: 2,
+            maxlength: 150
         },
 
         message: {
@@ -34,8 +33,8 @@ const submissionSchema = new Schema(
             required: [true, "message is required"],
             unique: false,
             trim: true,
-            minLength: 2,
-            maxLength: 1000
+            minlength: 2,
+            maxlength: 1000
         },
 
         status:{
