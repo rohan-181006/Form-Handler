@@ -1,4 +1,5 @@
 import { User } from "../models/user.model.js"
+import jwt from "jsonwebtoken";
 
 const registerUser = async (req, res) => {
     try {
@@ -61,24 +62,15 @@ const loginUser = async (req, res) => {
         });
 
         if (!user) return res.status(400).json({
-            message: "User not found"
+            message: "User not found!"
         });
 
 
 
         //Compare Password
         const isMatch = await user.comparePassword(password);
-        if (!isMatch) return res(400).json({
+        if (!isMatch) return res.status(400).json({
             message: "Incorrect Credentials!"
-        });
-
-        res.status(200).json({
-            message: "User logged in successfully",
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email
-            }
         });
 
         const token = jwt.sign(
@@ -92,6 +84,16 @@ const loginUser = async (req, res) => {
                 expiresIn: process.env.JWT_EXPIRES_IN
             }
         );
+
+        res.status(200).json({
+            message: "User logged in successfully",
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+            }
+        });
 
     } catch (error) {
         res.status(500).json({
