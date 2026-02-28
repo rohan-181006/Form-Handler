@@ -64,6 +64,8 @@ const loginUser = async (req, res) => {
             message: "User not found"
         });
 
+
+
         //Compare Password
         const isMatch = await user.comparePassword(password);
         if (!isMatch) return res(400).json({
@@ -77,7 +79,19 @@ const loginUser = async (req, res) => {
                 name: user.name,
                 email: user.email
             }
-        })
+        });
+
+        const token = jwt.sign(
+            {
+                id: user._id,
+                email: user.email
+            },
+
+            process.env.JWT_SECRET,
+            {
+                expiresIn: process.env.JWT_EXPIRES_IN
+            }
+        );
 
     } catch (error) {
         res.status(500).json({
@@ -86,8 +100,25 @@ const loginUser = async (req, res) => {
     }
 }
 
+const logoutUser = async (req, res) => {
+
+    const { email } = req.body;
+    const user = await User.findOne({
+        email
+    });
+
+    if (!user) return res.status(404).json({
+        message: "User not found!"
+    });
+
+    res.status(200).json({
+        message: "User logged out successfully"
+    });
+}
+
 
 export {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 }
