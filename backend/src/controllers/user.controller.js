@@ -43,7 +43,51 @@ const registerUser = async (req, res) => {
     }
 }
 
+const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
 
-export{
-    registerUser
+        if (!email?.trim() ||
+            !password?.trim()
+        ) {
+            return res.status(400).json({
+                message: "All fields are necessary!"
+            });
+        }
+
+        //Finding user in the DB
+        const user = await User.findOne({
+            email: email
+        });
+
+        if (!user) return res.status(400).json({
+            message: "User not found"
+        });
+
+        //Compare Password
+        const isMatch = await user.comparePassword(password);
+        if (!isMatch) return res(400).json({
+            message: "Incorrect Credentials!"
+        });
+
+        res.status(200).json({
+            message: "User logged in successfully",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email
+            }
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+}
+
+
+export {
+    registerUser,
+    loginUser
 }
