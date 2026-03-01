@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
         });
         res.status(201).json({
             message: "User registered!",
-            user: { id: user._id, email: user.email, name: user.name }
+            user: { id: user._id, email: user.email, name: user.name}
         });
 
 
@@ -92,6 +92,7 @@ const loginUser = async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
+                role: user.role
             }
         });
 

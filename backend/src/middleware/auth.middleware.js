@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.model.js";
 
-export const verifyJWT = async (req, res) => {
+export const verifyJWT = async (req, res, next) => {
     try {
-        const token = req.header.authorization?.split(" ")[1];
+        const token = req.headers.authorization?.split(" ")[1];
 
         if (!token) return res.status(400).json({
             message: "Unauthorized!"
@@ -14,16 +14,17 @@ export const verifyJWT = async (req, res) => {
             process.env.JWT_SECRET
         );
 
-        const user = User.findById(decoded.id).select("-password");
+        const user = await User.findById(decoded.id).select("-password");
 
         if (!user) return res.status(401).json({
             message: "Invalid Token"
         });
 
         req.user = user;
+        next();
 
     } catch (error) {
-        return res.status(500).json({
+        return res.status(401).json({
             message: "Invalid or Expired token"
         });
     }
