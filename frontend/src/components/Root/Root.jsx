@@ -44,7 +44,7 @@ export default function Root() {
 
             <Link
               to="/admin"
-              className="mt-8 bg-gray-800 text-white py-3 rounded-xl hover:opacity-90 transition block"
+              className="mt-8 bg-black text-white py-3 rounded-xl hover:opacity-90 transition block"
             >
               Go to Admin
             </Link>

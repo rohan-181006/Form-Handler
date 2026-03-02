@@ -9,6 +9,7 @@ import {
   Route,
   RouterProvider
 } from 'react-router-dom'
+import Submission from './components/Submission/Submission.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
