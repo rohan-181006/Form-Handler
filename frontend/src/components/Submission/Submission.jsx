@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 export default function Submission() {
   const [formData, setFormData] = useState({
@@ -17,11 +18,19 @@ export default function Submission() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
 
-    // Reset form
+    try {
+      const response = await axios.post("http://localhost:8000/api/v1/post/create", formData);
+      console.log("Form submitted successfully:", response.data);
+      alert("Form submitted successfully!");
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Something went wrong!");
+    }
+
     setFormData({
       name: "",
       email: "",
@@ -54,18 +63,6 @@ export default function Submission() {
               type="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-2 font-medium">Phone Number</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
               onChange={handleChange}
               required
               className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"

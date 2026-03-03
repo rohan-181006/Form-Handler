@@ -1,8 +1,10 @@
 import express from "express";
+import cors from "cors";
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());    
 
 import postRouter from "./src/routes/submission.routes.js"
 import userRouter from "./src/routes/user.routes.js"
