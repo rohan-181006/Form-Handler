@@ -28,13 +28,13 @@ const createSubmission = async(req,res) => {
         res.status(201).json({
             message: "Post created successfully",
             submission
-        })
+        });
 
 
     } catch (error) {
         res.status(500).json({
             message: "Internal server error!"
-        })
+        });
     }
 }
 //Read:
@@ -58,7 +58,7 @@ const readSubmission = async(req,res) => {
     } catch (error) {
         res.status(500).json({
             message: "Internal Server Error!!"
-        })
+        });
     }
 }
 //Update:
