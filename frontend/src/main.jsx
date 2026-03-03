@@ -10,12 +10,14 @@ import {
   RouterProvider
 } from 'react-router-dom'
 import Submission from './components/Submission/Submission.jsx'
+import AdminLogin from './components/AdminLogin/AdminLogin.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path='/' element={<Root />} />
       <Route path='/submission' element={<Submission />} />
+      <Route path='/login' element={<AdminLogin />} />
     </>
   )
 )

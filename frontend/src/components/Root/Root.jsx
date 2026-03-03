@@ -43,7 +43,7 @@ export default function Root() {
             </div>
 
             <Link
-              to="/admin"
+              to="/login"
               className="mt-8 bg-black text-white py-3 rounded-xl hover:opacity-90 transition block"
             >
               Go to Admin
