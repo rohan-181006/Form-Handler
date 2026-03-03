@@ -1,9 +1,50 @@
-import React from 'react'
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-function View() {
+export default function View() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/v1/post/read"
+        );
+        setPosts(response.data.submissions || []);
+      } catch (error) {
+        console.error("Failed to fetch posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
-    <div>View</div>
-  )
+    <div className="min-h-screen bg-slate-100 p-6">
+      <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6">
+        <h2 className="text-3xl font-bold mb-6 text-center">
+          Admin Dashboard
+        </h2>
+
+        {posts.length === 0 ? (
+          <p className="text-center text-gray-500">No submissions found.</p>
+        ) : (
+          <div className="space-y-4">
+            {posts.map((post) => (
+              <div
+                key={post._id}
+                className="border rounded-xl p-4 shadow-sm"
+              >
+                <p><strong>Name:</strong> {post.name}</p>
+                <p><strong>Email:</strong> {post.email}</p>
+                <p><strong>Subject:</strong> {post.subject}</p>
+                <p><strong>Message:</strong> {post.message}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default View
