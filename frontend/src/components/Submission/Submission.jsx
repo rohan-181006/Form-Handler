@@ -3,13 +3,15 @@ import axios from "axios";
 
 
 export default function Submission() {
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
     subject: "",
     message: "",
   });
+
+  const [status, setStatus] = useState("idle");;
 
 
 
@@ -23,21 +25,28 @@ export default function Submission() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    if (status === "submitting") return;
+    setStatus("submitting");
+
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/post/create", formData);
+      const response = await axios.post("http://localhost:4000/api/v1/post/create", formData);
       console.log("Form submitted successfully:", response.data);
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
+      setStatus("submitted");
 
     } catch (error) {
       console.error("Error submitting form:", error);
-    
+      setStatus("error");
     }
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+
   };
 
   return (
@@ -93,12 +102,28 @@ export default function Submission() {
               className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
             ></textarea>
           </div>
-          
+
+          {status === "submitted" && (
+            <p className="text-green-600 text-center">Form submitted successfully!</p>
+          )}
+
+          {status === "error" && (
+            <p className="text-red-600 text-center">Error submitting form.</p>
+          )}
+
           <button
             type="submit"
-            className="w-full bg-black text-white py-3 rounded-xl hover:opacity-90 transition"
+            className="w-full bg-black text-white py-3 rounded-xl transition
+           hover:opacity-90
+           disabled:bg-gray-400 disabled:opacity-60 disabled:cursor-not-allowed"
+            disabled=
+            {status === "submitting" ||
+              !formData.name ||
+              !formData.email ||
+              !formData.subject ||
+              !formData.message}
           >
-            Submit
+            {status === "submitting" ? "Submitting..." : "Submit"}
           </button>
         </form>
       </div>

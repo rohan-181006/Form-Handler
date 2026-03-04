@@ -5,27 +5,34 @@ import { useNavigate } from "react-router-dom";
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [status, setStatus] = useState("idle");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus("submitting");
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/user/login",
+        "http://localhost:4000/api/v1/user/login",
         { email, password }
       );
 
-      alert("Login successful!");
+      setStatus("success");
+      await new Promise((resolve) => setTimeout(resolve, 3000)); 
+
+      // alert("Login successful!");
       navigate("/read"); 
 
 
       setEmail("");
       setPassword("");
+      
 
     } catch (error) {
-      console.error("Login failed:", error.response?.data || error.message);
-      alert("Login failed: " + (error.response?.data?.message || error.message));
+      // console.error("Login failed:", error.response?.data || error.message);
+      // alert("Login failed: " + (error.response?.data?.message || error.message));
+      setStatus("error",error.response?.data?.message || error.message); 
     }
   };
 
@@ -56,6 +63,18 @@ export default function AdminLogin() {
               className="w-full border rounded-lg px-3 py-2"
             />
           </div>
+
+          {status === "error" && (
+            <p className="text-red-500 text-sm">
+              Login failed: {status.errorMessage || "Please try again."}
+            </p>
+          )}
+
+          {status === "success" && (
+            <p className="text-green-500 text-sm ">
+              Login successful!
+            </p>
+          )}
 
           <button
             type="submit"
