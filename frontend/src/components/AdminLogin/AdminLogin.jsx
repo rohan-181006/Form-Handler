@@ -18,6 +18,8 @@ export default function AdminLogin() {
         { email, password }
       );
 
+      localStorage.setItem("token", response.data.token);
+
       setStatus("success");
       await new Promise((resolve) => setTimeout(resolve, 3000)); 
 
@@ -33,6 +35,8 @@ export default function AdminLogin() {
       // console.error("Login failed:", error.response?.data || error.message);
       // alert("Login failed: " + (error.response?.data?.message || error.message));
       setStatus("error",error.response?.data?.message || error.message); 
+      setEmail("");
+      setPassword("");
     }
   };
 
@@ -57,6 +61,7 @@ export default function AdminLogin() {
             <label className="block mb-1">Password</label>
             <input
               type="password"
+              view={password}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

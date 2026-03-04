@@ -7,8 +7,19 @@ export default function View() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("No token found. Please log in.");
+          return;
+        }
+
         const response = await axios.get(
-          "http://localhost:8000/api/v1/post/read"
+          "http://localhost:4000/api/v1/post/read",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setPosts(response.data.submissions || []);
       } catch (error) {
