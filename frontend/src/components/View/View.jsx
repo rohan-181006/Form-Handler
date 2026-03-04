@@ -50,6 +50,23 @@ export default function View() {
                 <p><strong>Email:</strong> {post.email}</p>
                 <p><strong>Subject:</strong> {post.subject}</p>
                 <p><strong>Message:</strong> {post.message}</p>
+
+                
+                <div className="flex gap-3 mt-4 justify-end ">
+                  <button
+                    className="px-4 py-2 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition hover:cursor-pointer"
+                    
+                  >
+                    Reviewed
+                  </button>
+
+                  <button
+                    className="px-4 py-2 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 transition hover:cursor-pointer"
+                  >
+                    Resolved
+                  </button>
+                </div>
+
               </div>
             ))}
           </div>
