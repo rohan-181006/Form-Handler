@@ -102,14 +102,42 @@ Check `backend/src/config/database.js` for DB connection logic and details. The 
 
 ## Development Notes
 
-- Controllers live in `backend/src/controllers/` and define request handlers.
-- Routes live in `backend/src/routes/` and wire endpoints to controllers.
-- Models live in `backend/src/models/`.
-- Middleware for authentication and admin verification live in `backend/src/middleware/`.
+- **Controllers** (`backend/src/controllers/`): Define request handlers for submissions and user operations.
+- **Routes** (`backend/src/routes/`): Wire API endpoints to controllers.
+- **Models** (`backend/src/models/`): Define data schemas (Submission and User).
+- **Middleware** (`backend/src/middleware/`): Authentication and admin verification logic.
+- **Config** (`backend/src/config/`): Database connection and constants.
+
+## Frontend Architecture
+
+The React frontend includes:
+- **AdminLogin** component: Admin authentication interface
+- **Root** component: Main app layout/router
+- **Submission** component: Form submission interface
+- **View** component: View and manage submissions
 
 ## Editing and Extending
 
-- To add new API routes: create a route file or add routes in `backend/src/routes/` and implement handlers in `backend/src/controllers/`.
-- To change UI behavior: edit React components in `frontend/src/components/`.
+### Adding New API Routes
+
+1. Create a route file in `backend/src/routes/` (e.g., `new-feature.routes.js`)
+2. Implement handlers in `backend/src/controllers/new-feature.controller.js`
+3. Register the route in `backend/app.js`
+
+### Updating Frontend Components
+
+- Edit React components in `frontend/src/components/`
+- Styles are in `frontend/src/App.css` and `frontend/src/index.css`
+
+## Troubleshooting
+
+- **Backend won't start**: Check `.env` file and MongoDB connection string
+- **Frontend build errors**: Run `npm install` and clear node_modules if needed
+- **CORS issues**: Verify frontend and backend URLs match in API calls
+- **Authentication errors**: Ensure JWT_SECRET is properly set in `.env`
+
+## License
+
+Open source project for form handling and user management.
 
 

@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default function View() {
   const [posts, setPosts] = useState([]);
+  const [postStatus, setPostStatus] = useState("pending");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -29,7 +30,7 @@ export default function View() {
 
     fetchPosts();
   }, []);
-
+  
   return (
     <div className="min-h-screen bg-slate-100 p-6">
       <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6">
@@ -64,6 +65,12 @@ export default function View() {
                     className="px-4 py-2 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 transition hover:cursor-pointer"
                   >
                     Resolved
+                  </button>
+
+                  <button
+                    className="px-4 py-2 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 transition hover:cursor-pointer"
+                  >
+                    Delete
                   </button>
                 </div>
 
