@@ -30,7 +30,18 @@ export default function View() {
 
     fetchPosts();
   }, []);
-  
+
+  const updatePost = async (postId, newStatus) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/api/v1/post/update/${postId}`,
+        { status: newStatus },
+      );
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <div className="min-h-screen bg-slate-100 p-6">
       <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6">
@@ -47,16 +58,25 @@ export default function View() {
                 key={post._id}
                 className="border rounded-xl p-4 shadow-sm"
               >
+                <p className="text-sm text-gray-500 mb-2 justify-end flex">
+                  {
+                    new Date(post.createdAt).toLocaleString("en-IN", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    })
+                  }
+                </p>
+
                 <p><strong>Name:</strong> {post.name}</p>
                 <p><strong>Email:</strong> {post.email}</p>
                 <p><strong>Subject:</strong> {post.subject}</p>
                 <p><strong>Message:</strong> {post.message}</p>
 
-                
+
                 <div className="flex gap-3 mt-4 justify-end ">
                   <button
                     className="px-4 py-2 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition hover:cursor-pointer"
-                    
+                    onClick={() => updatePost (post._id, "reviewed")}
                   >
                     Reviewed
                   </button>

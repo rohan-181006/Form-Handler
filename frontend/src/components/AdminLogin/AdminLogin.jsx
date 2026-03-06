@@ -21,20 +21,20 @@ export default function AdminLogin() {
       localStorage.setItem("token", response.data.token);
 
       setStatus("success");
-      await new Promise((resolve) => setTimeout(resolve, 3000)); 
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
       // alert("Login successful!");
-      navigate("/read"); 
+      navigate("/read");
 
 
       setEmail("");
       setPassword("");
-      
+
 
     } catch (error) {
       // console.error("Login failed:", error.response?.data || error.message);
       // alert("Login failed: " + (error.response?.data?.message || error.message));
-      setStatus("error",error.response?.data?.message || error.message); 
+      setStatus("error", error.response?.data?.message || error.message);
       setEmail("");
       setPassword("");
     }
@@ -87,6 +87,15 @@ export default function AdminLogin() {
           >
             Login
           </button>
+
+          <div className="mb-2 text-center fixed bottom-4 text-sm right-4 bg-slate-100 py-2 italic rounded-lg shadow-md">
+            <p>
+              Email: admin@gmail.com
+            </p>
+            <p>
+              Password: 123456
+            </p>
+          </div>
         </form>
       </div>
     </div>
